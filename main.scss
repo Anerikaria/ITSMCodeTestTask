@@ -246,18 +246,18 @@ $margin-top : 2.5rem;
 
 input[type="checkbox"] + label::before {
     content: "";
-    @include customdesign(inline-block, 2rem , 2rem , 4px , .5rem );
+    @include customdesign(inline-block, 1.3rem , 1.3rem , 4px , .5rem );
     border: 2px solid  $form-inputcolor; 
 }
 
 input[type="checkbox"]:checked + label::before {
-  content: "\2713"; 
+  content: ""; 
   background-color: $form-inputcolor; 
   text-align: center;
   color: $color-white;
   font-size: $font-size;
   padding:  auto;
-  line-height: 1rem;
+  
 }
 
   
