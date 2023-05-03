@@ -1,0 +1,264 @@
+//variables
+//colors variables
+$error-color: red;
+$border-button: 0.2px solid #81813e;
+$color-white: #fff;
+$form-bgcolor: #d6d1d161;
+$form-inputcolor: #227ebf;
+$form-inputcolorlight : #d7ebfa9d;
+$form-textheading : #fefefe;
+$gradient-primary: linear-gradient(to top left, #187cc8, #197cc5, #1c7dc4, #177ec2, #207dc2, #217cc2, #227ebf, #257fbe, #297db9);
+
+//shadows
+$box-shadow: 0 0 6rem rgba(#000, 0.5);
+$box-shadow-light: 0 0 3rem rgba(#000, 0.3);
+$text-shadow : #181616;
+
+
+//constant value's variables
+$font-size: 1.8rem;
+$line-height : 3rem;
+$margin-top : 2.5rem;
+
+//mixins
+@mixin common-property($height, $borderradius, $padding){
+    line-height: $height;
+    border-radius: $borderradius;
+    padding: $padding;
+  }
+
+@mixin common-flex($display, $direction, $alignitems){
+    display: $display;
+    flex-direction: $direction;
+    align-items: $alignitems;
+}
+
+@mixin customdesign($display, $width, $height, $boderradius, $marginright){
+    display: $display;
+    width: $width;
+    height: $height;
+    border-radius: $boderradius;
+    margin-right: $marginright;
+  
+}
+
+/*media queries mixins*/
+@mixin respond($breakpoint) {
+    @if $breakpoint == normal {
+      @media (max-width: 112.5em) {
+        
+        @content;
+      }
+    }
+    @if $breakpoint == tab-land {
+      @media (max-width: 75em) {
+        
+        @content;
+      }
+      //1200px
+    }
+    @if $breakpoint == tab-port {
+      @media (max-width: 56.25em) {
+        
+        @content;
+      }
+      //900px
+    }
+  
+    @if $breakpoint == phone {
+      @media (max-width: 37.5em) {
+        
+        @content;
+      }
+      //600px
+    }
+  }
+  
+
+//basic style
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+  
+  html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    font-family: "Manrope", sans-serif;
+    font-weight: 400;
+    line-height: $line-height;
+    @include respond(phone){
+        width: 100%;
+        padding: 0;
+    }
+
+  }
+
+  .taskmain{
+    border: 8px ridge;
+    border-image: $gradient-primary 1;
+    padding: 7rem;
+    margin: 3rem 40rem 2rem 40rem;
+    box-shadow: $box-shadow-light;
+    background-color: $form-bgcolor;
+    @include respond(phone){
+        width: 100%;
+        text-align: center;
+        border: none;
+        padding: .2rem;
+        margin: 0rem;
+        padding-left: 4rem;
+    }
+
+  }
+  
+//   .sectiontask {
+//     margin: 3rem 40rem 2rem 40rem;
+
+//   }
+  //navigation
+  .navigation {
+    display: flex;
+    height: 20rem;
+    justify-content: center;
+    padding: 0 6rem;
+    @include respond(phone){
+        justify-content: center;
+        padding:  6rem;
+        align-items: center;
+        img{
+            height:12rem;
+        }
+    }
+
+  }
+
+  //form-style with nested elements
+  .user-form{
+    font-size: $font-size;
+    text-align: center;
+    margin: 5rem 0rem 5rem 0rem;
+
+    @include respond(phone){
+        margin: 5rem;
+        padding: 1rem;
+    }
+
+    &__heading{
+        color: $form-textheading ;
+        text-shadow: 2px 2px 4px $text-shadow;
+        font-weight: 600;
+        span{
+            color: $form-inputcolor;
+            text-shadow: none;
+            font-weight: 700;
+        }
+    }
+    &__txtinput{
+        @include common-property(2rem, .5rem , 0.6rem );
+        margin-top: $margin-top;
+        line-height: $line-height;
+        width: 100%;
+        border: 2px solid $form-inputcolor;
+        &:hover, &:focus, &:visited{
+            background-color: $form-inputcolorlight;
+            outline: none;        
+        }
+    }
+
+    &__options{
+        list-style: none;
+        @include common-flex(flex, column , flex-start );
+        li{
+           text-align: left;
+            margin-top: 1rem;
+        }
+
+    }
+
+    &__label{
+        @include common-flex(flex, column , flex-start );
+        color: $error-color;
+        margin-top: $margin-top;
+    }
+
+    &__consent{
+        margin-top: $margin-top;
+        line-height: 2;
+        text-align: left;
+    }
+
+    &__submit{        
+        @include common-property($margin-top, 2rem, 3rem );
+        cursor: pointer;
+        margin-top: $margin-top;
+        border: $border-button;
+        font-size: $font-size;
+        box-shadow: $box-shadow;
+        background-image: $gradient-primary;
+    }
+  }
+  
+  //form radio button with mixin
+  .user-form__radiogroup{
+    @include common-flex(flex, column , flex-start );
+    margin-top: $margin-top;
+
+  }
+
+
+//lable error color
+  .radio-error__label,
+  .user-form__chklabel{
+    @include common-flex(flex, column , flex-start );
+    color: $error-color;
+    margin-top: $margin-top;
+  }
+
+  //error mesage display none currently
+  .error__message{
+    display: none;
+    color: $error-color;
+    text-align: left;
+  }
+
+  //attribut, display none for custom style
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: none;
+}
+
+ input[type="radio"] + label::before {
+  content: "";
+  @include customdesign(inline-block, 1.2rem , 1.2rem ,50% , .5rem );
+  border: 2px solid $form-inputcolor; 
+ }
+
+  input[type="radio"]:checked + label::before {
+    background-color: $form-inputcolor; 
+}
+
+input[type="checkbox"] + label::before {
+    content: "";
+    @include customdesign(inline-block, 2rem , 2rem , 4px , .5rem );
+    border: 2px solid  $form-inputcolor; 
+}
+
+input[type="checkbox"]:checked + label::before {
+  content: "\2713"; 
+  background-color: $form-inputcolor; 
+  text-align: center;
+  color: $color-white;
+  font-size: $font-size;
+  padding:  auto;
+  line-height: 1rem;
+}
+
+  
+
